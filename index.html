@@ -13,7 +13,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💗</text></svg>">
 
 <link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img1.webp">
@@ -24,7 +24,7 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Indie Flower','Bradley Hand','Segoe Script',cursive;cursor:grab;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;}
+html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Dancing Script','Bradley Hand','Segoe Script',cursive;cursor:grab;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;}
 body:active{cursor:grabbing;}
 canvas{display:block;position:fixed;top:0;left:0;z-index:1;}
 
@@ -33,7 +33,7 @@ canvas{display:block;position:fixed;top:0;left:0;z-index:1;}
   font-size:4.5em;color:#FFB6C1;max-width:92vw;white-space:nowrap;
   text-shadow:0 0 15px #FF69B4,0 0 25px #DC143C;
   z-index:10;pointer-events:none;text-align:center;
-  font-family:'Indie Flower','Bradley Hand','Segoe Script',cursive;
+  font-family:'Dancing Script','Bradley Hand','Segoe Script',cursive;
 }
 .t-line,.t-emoji{display:inline;}
 
@@ -149,19 +149,19 @@ canvas{display:block;position:fixed;top:0;left:0;z-index:1;}
 }
 #love-card-image.error,#love-card-image:not([src]){display:none;}
 #love-card-title{
-  font-family:'Indie Flower','Bradley Hand','Segoe Script',cursive;font-size:clamp(28px,7vw,40px);
+  font-family:'Dancing Script','Bradley Hand','Segoe Script',cursive;font-size:clamp(28px,7vw,40px);
   color:#ffd7dd;text-shadow:0 0 18px rgba(255,105,180,.7);
   margin:0 0 14px;line-height:1.15;text-align:center;width:100%;
 }
 #love-card-text{
-  font-family:'Indie Flower','Bradley Hand','Segoe Script',cursive;font-size:clamp(16px,3.8vw,21px);
+  font-family:'Dancing Script','Bradley Hand','Segoe Script',cursive;font-size:clamp(16px,3.8vw,21px);
   line-height:1.65;color:rgba(255,220,230,.92);text-align:center;
   margin:0 0 26px;text-wrap:pretty;padding:0 8px;
 }
 #love-card-close{
   background:transparent;border:1px solid rgba(255,120,140,.55);
   color:#ffb8c8;min-height:46px;padding:10px 36px;
-  font-family:'Indie Flower','Bradley Hand','Segoe Script',cursive;font-size:20px;
+  font-family:'Dancing Script','Bradley Hand','Segoe Script',cursive;font-size:20px;
   border-radius:999px;cursor:pointer;
   transition:background .3s,border-color .3s,color .3s;
 }
@@ -331,7 +331,7 @@ const CONFIG={
     name:{
       text:(window.APP_TEXT&&window.APP_TEXT.particleName)||'Duy Nguyen',
       width:6.6,                                                   // ancho objetivo en unidades locales (~1.5x el corazón)
-      fontFamily:'"Indie Flower","Segoe Script","Bradley Hand",cursive'
+      fontFamily:'"Dancing Script","Segoe Script","Bradley Hand",cursive'
     }
   },
   emojiHearts:{count:isMobile?10:14,emoji:['❤️','💗','💖','💕']},
@@ -654,7 +654,7 @@ function createTextTexture(text,color){
   const canvas=document.createElement('canvas');
   canvas.width=Math.round(1800*S);canvas.height=Math.round(700*S);
   const ctx=canvas.getContext('2d');
-  ctx.font=Math.round(115*S)+'px "Indie Flower","Bradley Hand","Segoe Script",cursive';ctx.fillStyle=color.fill;
+  ctx.font=Math.round(115*S)+'px "Dancing Script","Bradley Hand","Segoe Script",cursive';ctx.fillStyle=color.fill;
   ctx.textAlign='center';ctx.textBaseline='middle';
   ctx.shadowColor=color.shadow;ctx.shadowBlur=2*S;
   const words=text.split(' ');let lines=[],currentLine=words[0];
@@ -754,7 +754,7 @@ function generarDestinoNombre(){
   ctx.clearRect(0,0,W,H);
   ctx.fillStyle='#fff';ctx.textAlign='center';ctx.textBaseline='middle';
   let fs=200;
-  const fam=nCfg.fontFamily||'"Indie Flower","Segoe Script","Bradley Hand",cursive';
+  const fam=nCfg.fontFamily||'"Dancing Script","Segoe Script","Bradley Hand",cursive';
   const setFont=()=>ctx.font='700 '+fs+'px '+fam;
   setFont();
   while(fs>24&&ctx.measureText(txt).width>W-70){fs-=6;setFont();}
