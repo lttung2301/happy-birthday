@@ -15,9 +15,9 @@
       "ariaLabel": "Open birthday card",
       "cakeEmoji": "🎂",
       "frontName": "For Già!",
-      "hint": "Tap to open",
-      "insideTitle": "Happy 25th! 🎉",
-      "wish": "Twenty-five years, one whole galaxy, all for you. May this year bring your master's degree, a little more rest, and every good thing your students already know you deserve. Tap below and let the stars carry you away. 💫",
+      "hint": "Chạm để mở nha",
+      "insideTitle": "Hi, Già! 🎉",
+      "wish": "Nay bước sang tuổi mới rồi 🎂✨ Chúc bạn có một ngày sinh thần thiệt là vui vẻ nha!\nChúc cho mọi cố gắng của bạn đều đạt được những kết quả thật xứng đáng, mọi dự định đều thuận lợi và sớm hoàn thành những điều mình mong muốn. Đặc biệt là mau chóng trở thành Tân Thạc Sĩ nha!!! 🎓✨\n\nBest wishes to you!!! 💐\n\nCó 1 món quà dành cho bạn, hãy nhấn vào bên dưới để xem nha. Trên mỗi hình sẽ có vài thông điệp nho nhỏ, nhớ nhấn vào hình để xem nhá!!!",
       "enterButton": "Enter the galaxy ✨"
     },
     "loveCard": {
@@ -29,77 +29,71 @@
   "dayText": "05/09",
   "music": "/music.mp3",
   "phrases": [
-    "Happy 25th",
-    "A quarter century of sparkle",
-    "Master's almost done",
-    "Soon: Master of Arts",
-    "Cap and gown loading",
-    "The best English teacher",
-    "Class dismissed - go celebrate",
-    "A+ human",
-    "Chapter 25 begins",
+    "Sinh thần vui vẻ",
+    "Bình an",
+    "Hạnh phúc",
+    "Sức khỏe",
+    "Everything will be okay",
+    "Best wishes to you!",
+    "Cuộc sống tự do",
+    "Road to Master",
+    "Luôn bình an",
     "So proud of you",
     "Make a wish",
-    "Shine bright",
-    "Your students are lucky",
-    "You inspire the room",
-    "Big year ahead",
-    "Dream big, teacher",
+    "Happy Birthday",
     "Today is all yours",
-    "Wishing you the moon",
-    "Here's to you",
     "May all your wishes come true"
   ],
   "loveCards": [
     {
-      "name": "Happy 25th",
+      "name": "Happy Birthday – Tuổi mới thật rực rỡ nhá",
       "img": "/images/1.jpg",
-      "msg": "Twenty-five looks wonderful on you - a whole quarter-century of being kind, bright, and impossible not to love. Here's to the next chapter."
+      "msg": "Chúc bạn có một sinh nhật thật vui vẻ và một tuổi mới thật nhiều niềm vui. Mong rằng tuổi mới sẽ mở ra một hành trình thật đẹp, nhiều cơ hội và thật nhiều khoảnh khắc đáng nhớ. 💐"
     },
     {
-      "name": "Almost a Master",
+      "name": "Cuộc sống tự do ✨",
       "img": "/images/2.png",
-      "msg": "All those late nights, readings and drafts are about to have letters after your name. So proud of you - go collect that degree."
+      "msg": "Chúc bạn có thể đặt chân đến mọi nơi mình muốn, khám phá những vùng đất mới, trải nghiệm những điều thú vị và có thiệt nhiều kỷ niệm đẹp nha.\n\nWork hard, earn more, travel far, and live freely. 🌍💰✈️"
     },
     {
-      "name": "To the teacher",
+      "name": "Go with the flow",
       "img": "/images/3.jpg",
-      "msg": "You spend your days helping other people find the right words. Today, let someone find them for you: you are appreciated, more than your students could ever say."
+      "msg": "Flow càng dữ dội càng chứng minh bạn có đủ sức mạnh để vượt qua. Thử thách sẽ khiến hành trình trở nên ý nghĩa, đáng nhớ hơn rất nhiều nha!"
     },
     {
-      "name": "Cap and gown soon",
+      "name": "Best wishes to you! 💐✨",
       "img": "/images/4.jpg",
-      "msg": "The walk across the stage is so close now. Whatever comes after graduation, you have more than earned it."
+      "msg": "Mong tuổi mới sẽ là một chương thật đẹp trong câu chuyện của bạn.\nHappy Birthday! 🎂\nMay all your dreams come true. ☘️✨"
     },
     {
-      "name": "Make a wish",
+      "name": "Everything will be okay 🌤️",
       "img": "/images/5.jpg",
-      "msg": "Close your eyes, blow out all twenty-five candles, and wish big. If anyone deserves for it to come true, it's you."
+      "msg": "Nếu có những ngày bạn cảm thấy mọi thứ thật khó khăn, hãy nhớ rằng không có ngày buồn nào kéo dài mãi mãi.\nCứ đi từng bước một.\nRồi mọi chuyện sẽ ổn thôi. ☘️"
     },
     {
-      "name": "One in a billion",
+      "name": "Road to Master 🎓✨",
       "img": "/images/6.jpg",
-      "msg": "Smart, patient, and genuinely good - that combination is rare. Happy birthday to someone the world got lucky with."
+      "msg": "Một chặng đường dài đã đi qua, và đích đến đã rất gần. Gán chút nữa nha!!! Sắp thành Tân Thạc Sỹ rồi!!!"
     },
     {
-      "name": "Your students are lucky",
+      "name": "Hãy cho mình sự nghỉ ngơi nha",
       "img": "/images/7.jpg",
-      "msg": "Somewhere out there, a kid learned to love English because of you. That's a real legacy - and you're only 25."
+      "msg": "Có những ngày mệt thì cứ cho phép bản thân nghỉ ngơi một chút. Nghỉ ngơi không phải là bỏ cuộc, mà là để ngày mai có thêm năng lượng bước tiếp. 🌿"
     },
     {
-      "name": "This year",
+      "name": "Giữ sức khoẻ tốt nhá",
       "img": "/images/8.png",
-      "msg": "A new age, a new degree, and a fresh page. May 25 bring you good news, good people, and time to actually rest."
+      "msg": "Nhớ ăn uống đầy đủ, giữ gìn sức khỏe thật tốt và đặc biệt là ngủ đúng giờ nha, đừng thức khuya nhiều quá nha!"
     },
     {
-      "name": "In case no one said it",
+      "name": "Mọi cố gắng rồi sẽ được đền đáp 🌱",
       "img": "/images/9.png",
-      "msg": "You are loved, you are enough, and you are doing better than you think. Happy birthday - and breathe, you've earned this day."
+      "msg": "Có thể hôm nay bạn chưa nhìn thấy kết quả của những nỗ lực mình đã bỏ ra. Nhưng đừng vì thế mà nghĩ rằng chúng vô nghĩa.\n\nCứ kiên trì thêm một chút, cố gắng thêm một chút. Rồi sẽ có một ngày bạn nhìn lại nể phục con đường mà mình đã trãi qua!"
     },
     {
-      "name": "Keep shining",
+      "name": "Luôn bình an ☘️",
       "img": "/images/10.png",
-      "msg": "You light up classrooms and group chats and every room you walk into. Never lose that. Have the brightest year yet."
+      "msg": "Có những ngày mệt thì cứ cho phép bản thân nghỉ ngơi một chút. Nghỉ ngơi không phải là bỏ cuộc, mà là để ngày mai có thêm năng lượng bước tiếp. 🌿"
     }
   ]
 }
