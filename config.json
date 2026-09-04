@@ -7,9 +7,9 @@
       "ogTitle": "Happy birthday Trúc Hà 💗",
       "ogDescription": "A whole galaxy for your 25th. 🎂",
       "ogUrl": "https://feliz-dia-de-la-novia.netlify.app/",
-      "ogImage": "https://files.catbox.moe/e46foh.jpg"
+      "ogImage": "/images/1.jpg"
     },
-    "mainTitle": "05/09 - ",
+    "mainTitle": "05/09",
     "mainTitleEmoji": "🎂",
     "startCard": {
       "ariaLabel": "Open birthday card",
@@ -53,52 +53,52 @@
   "loveCards": [
     {
       "name": "Happy 25th",
-      "img": "https://files.catbox.moe/e46foh.jpg",
+      "img": "/images/1.jpg",
       "msg": "Twenty-five looks wonderful on you - a whole quarter-century of being kind, bright, and impossible not to love. Here's to the next chapter."
     },
     {
       "name": "Almost a Master",
-      "img": "https://files.catbox.moe/ir2gkn.png",
+      "img": "/images/2.png",
       "msg": "All those late nights, readings and drafts are about to have letters after your name. So proud of you - go collect that degree."
     },
     {
       "name": "To the teacher",
-      "img": "https://files.catbox.moe/tvk1km.jpg",
+      "img": "/images/3.jpg",
       "msg": "You spend your days helping other people find the right words. Today, let someone find them for you: you are appreciated, more than your students could ever say."
     },
     {
       "name": "Cap and gown soon",
-      "img": "https://files.catbox.moe/uymimf.png",
+      "img": "/images/4.jpg",
       "msg": "The walk across the stage is so close now. Whatever comes after graduation, you have more than earned it."
     },
     {
       "name": "Make a wish",
-      "img": "https://files.catbox.moe/l2hfy5.png",
+      "img": "/images/5.jpg",
       "msg": "Close your eyes, blow out all twenty-five candles, and wish big. If anyone deserves for it to come true, it's you."
     },
     {
       "name": "One in a billion",
-      "img": "https://files.catbox.moe/gybm0n.png",
+      "img": "/images/6.jpg",
       "msg": "Smart, patient, and genuinely good - that combination is rare. Happy birthday to someone the world got lucky with."
     },
     {
       "name": "Your students are lucky",
-      "img": "https://files.catbox.moe/4ssrof.jpg",
+      "img": "/images/7.jpg",
       "msg": "Somewhere out there, a kid learned to love English because of you. That's a real legacy - and you're only 25."
     },
     {
       "name": "This year",
-      "img": "https://files.catbox.moe/rr4u36.jpg",
+      "img": "/images/8.png",
       "msg": "A new age, a new degree, and a fresh page. May 25 bring you good news, good people, and time to actually rest."
     },
     {
       "name": "In case no one said it",
-      "img": "https://files.catbox.moe/g0nwtp.jpg",
+      "img": "/images/9.png",
       "msg": "You are loved, you are enough, and you are doing better than you think. Happy birthday - and breathe, you've earned this day."
     },
     {
       "name": "Keep shining",
-      "img": "https://files.catbox.moe/8ldf9d.jpg",
+      "img": "/images/10.png",
       "msg": "You light up classrooms and group chats and every room you walk into. Never lose that. Have the brightest year yet."
     }
   ]
