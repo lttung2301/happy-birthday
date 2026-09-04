@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Galaxy — content editor</title>
+<style>
+  :root{
+    --bg:#0c0510; --panel:#16101d; --panel2:#1e1626; --line:#3a2b45;
+    --text:#f3e9f2; --muted:#a892b0; --accent:#ff5c8a; --accent2:#7cc7ff;
+    --ok:#38d39f; --err:#ff6b6b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    padding-bottom:120px;-webkit-text-size-adjust:100%}
+  a{color:var(--accent2)}
+  header{position:sticky;top:0;z-index:20;background:rgba(12,5,16,.92);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:12px 16px}
+  header .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;max-width:900px;margin:0 auto}
+  header h1{font-size:16px;margin:0;flex:1;min-width:140px}
+  main{max-width:900px;margin:0 auto;padding:18px 16px}
+  button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--line);
+    background:var(--panel2);color:var(--text);padding:8px 14px;transition:.15s}
+  button:hover{border-color:var(--accent);background:#241a2e}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#2a0713;font-weight:600}
+  button.primary:hover{filter:brightness(1.08)}
+  button.ghost{background:transparent}
+  button.mini{padding:3px 9px;font-size:13px}
+  fieldset{border:1px solid var(--line);border-radius:14px;margin:0 0 18px;padding:6px 16px 16px;
+    background:var(--panel)}
+  legend{padding:0 8px;color:var(--accent);font-weight:600;letter-spacing:.02em}
+  .field{margin:12px 0}
+  .field > label{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
+  .field .hint{font-size:12px;color:var(--muted);margin-top:3px}
+  input[type=text],input[type=url],textarea,select{
+    width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:8px;
+    color:var(--text);padding:9px 11px;font:inherit}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
+  textarea{resize:vertical;min-height:70px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:620px){.grid2{grid-template-columns:1fr}}
+  .imgfield{border:1px dashed var(--line);border-radius:10px;padding:10px;background:var(--panel2)}
+  .imgfield .top{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .imgfield input[type=url]{flex:1;min-width:160px}
+  .imgfield .thumb{margin-top:8px;display:none}
+  .imgfield .thumb img{max-height:120px;max-width:100%;border-radius:6px;border:1px solid var(--line)}
+  .imgfield .status{font-size:12px;margin-top:6px;min-height:15px;color:var(--muted)}
+  .imgfield .status.ok{color:var(--ok)} .imgfield .status.err{color:var(--err)}
+  .card{border:1px solid var(--line);border-radius:10px;padding:12px;margin:10px 0;background:var(--panel2)}
+  .card .cardhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+  .card .cardhead strong{font-size:13px;color:var(--muted)}
+  .card .cardhead .ctrls{display:flex;gap:6px}
+  .list-add{margin-top:6px}
+  #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);
+    background:#241a2e;border:1px solid var(--line);border-radius:10px;padding:12px 18px;
+    opacity:0;transition:.25s;pointer-events:none;z-index:50;max-width:90vw}
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  #toast.ok{border-color:var(--ok)} #toast.err{border-color:var(--err)}
+  .savebar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(12,5,16,.94);
+    backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:10px 16px}
+  .savebar .row{max-width:900px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .savebar .sp{flex:1}
+  code{background:var(--panel2);padding:1px 5px;border-radius:4px;font-size:.9em}
+  details{margin:10px 0;border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:0 12px}
+  details summary{cursor:pointer;padding:10px 0;color:var(--muted)}
+  details[open]{padding-bottom:12px}
+</style>
+</head>
+<body>
+<header><div class="row">
+  <h1>💫 Galaxy content editor</h1>
+  <a href="./index.html" target="_blank" rel="noopener"><button class="ghost">Open galaxy ↗</button></a>
+  <button id="btn-reload" class="ghost" title="Reload config.json from disk">Reload</button>
+</div></header>
+
+<main id="form"><!-- built by JS --></main>
+
+<div class="savebar"><div class="row">
+  <span id="server-note" class="hint" style="color:var(--muted)"></span>
+  <span class="sp"></span>
+  <button id="btn-copy" class="ghost">Copy JSON</button>
+  <button id="btn-download" class="ghost">Download config.json</button>
+  <button id="btn-save" class="primary">Save to server</button>
+</div></div>
+
+<div id="toast"></div>
+
+<script>
+"use strict";
+
+/* ---------- defaults (mirror of index.html's built-in values) ---------- */
+const IMG = "https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/";
+const DEFAULTS = {
+  text: {
+    lang: "en",
+    documentTitle: "Happy Birthday",
+    meta: {
+      themeColor: "#000000",
+      ogTitle: "Happy birthday Duy Nguyen 💗",
+      ogDescription: "A whole galaxy just for you.",
+      ogUrl: "https://feliz-dia-de-la-novia.netlify.app/",
+      ogImage: IMG + "img1.webp"
+    },
+    mainTitle: "Duy Nguyen",
+    mainTitleEmoji: "💗",
+    startCard: {
+      ariaLabel: "Open birthday card",
+      cakeEmoji: "🎂",
+      frontName: "For Duy Nguyen",
+      hint: "Tap to open",
+      insideTitle: "Happy Birthday! 🎉",
+      wish: "Today the whole universe lights up just to celebrate you. May this new year bring you light, adventures, and all the love you deserve. Tap below and let the galaxy carry you away. 💫",
+      enterButton: "Enter the galaxy ✨"
+    },
+    loveCard: { fallbackEmoji: "💗", closeButton: "Close" }
+  },
+  particleName: "Thao Huynh",
+  dayText: "04/09",
+  music: IMG + "sound.mp3",
+  phrases: ["Feliz Día de la Novia","Te amo","Eres mi todo","Mi amor eterno","Contigo lo es todo","Te quiero sin fin","Amor verdadero","Tú eres mi hogar","Eres lo que soñé","Siempre contigo","Cada día te quiero más","Eres mi mundo","Mi novia hermosa","Gracias por existir","Mi persona favorita","Eres mi lugar","Te elijo a ti","Hoy es tu día","Eres mi paz","Solo tú y yo"],
+  loveCards: [
+    { name:"Feliz Día de la Novia", img:IMG+"img1.webp", msg:"Hoy es tu día y quiero decírtelo despacio: gracias por quedarte, por elegirme siempre." },
+    { name:"Tu risa", img:IMG+"img2.webp", msg:"La mejor hora del día es esa en la que te ríes y se te cierran los ojos." },
+    { name:"Mi persona favorita", img:IMG+"img3.webp", msg:"No hace falta un lugar bonito. Cualquier tarde se vuelve mágica si estás sentada al lado." },
+    { name:"Contigo", img:IMG+"img4.webp", msg:"Todavía me acuerdo de cómo me temblaban las manos. Desde ese día, cada beso tuyo conserva aquel susto bonito." },
+    { name:"Eres mi lugar", img:IMG+"img5.webp", msg:"Dondequiera que estés, esa es mi casa. No necesito más." },
+    { name:"Te elijo a ti", img:IMG+"img1.webp", msg:"De todas las personas del mundo, te elijo a ti, hoy y siempre." },
+    { name:"Gracias", img:IMG+"img2.webp", msg:"Gracias por hacer que cada día valga la pena, por estar tú al otro lado de todo." },
+    { name:"Para siempre", img:IMG+"img3.webp", msg:"No sé cuánto dura para siempre, pero sé que lo quiero pasar contigo." },
+    { name:"Eres mi todo", img:IMG+"img4.webp", msg:"Si tuviera que quedarme con una sola cosa de esta vida, me quedo contigo." },
+    { name:"Feliz día, mi novia", img:IMG+"img5.webp", msg:"Que este día te recuerde lo mucho que significas para mí. Te quiero." }
+  ]
+};
+
+/* ---------- helpers ---------- */
+const $ = (s, r=document) => r.querySelector(s);
+const el = (tag, props={}, kids=[]) => {
+  const n = document.createElement(tag);
+  for (const k in props) {
+    if (k === "class") n.className = props[k];
+    else if (k === "html") n.innerHTML = props[k];
+    else if (k === "text") n.textContent = props[k];
+    else if (k.startsWith("on")) n.addEventListener(k.slice(2), props[k]);
+    else n.setAttribute(k, props[k]);
+  }
+  (Array.isArray(kids) ? kids : [kids]).forEach(c => c != null && n.append(c));
+  return n;
+};
+const clone = o => JSON.parse(JSON.stringify(o));
+// objects deep-merge; arrays and primitives replace
+function deepMerge(base, over){
+  if (over === undefined) return base;
+  if (over === null || typeof over !== "object") return over;
+  if (Array.isArray(over)) return over.slice();
+  const out = (base && typeof base === "object" && !Array.isArray(base)) ? Object.assign({}, base) : {};
+  for (const k in over) out[k] = deepMerge(out[k], over[k]);
+  return out;
+}
+function getPath(o, p){ return p.split(".").reduce((a,k)=> a==null?a:a[k], o); }
+function setPath(o, p, v){
+  const ks = p.split("."); let cur = o;
+  for (let i=0;i<ks.length-1;i++){ cur[ks[i]] = cur[ks[i]] || {}; cur = cur[ks[i]]; }
+  cur[ks[ks.length-1]] = v;
+}
+let toastT;
+function toast(msg, kind){
+  const t = $("#toast"); t.textContent = msg; t.className = "show " + (kind||"");
+  clearTimeout(toastT); toastT = setTimeout(()=> t.className = t.className.replace("show","").trim(), 3200);
+}
+
+/* ---------- state ---------- */
+let state = clone(DEFAULTS);
+let saveOk = false;      // POST /api/save works (local server.py only)
+
+/* ---------- image field (paste a URL) ---------- */
+function imageField(get, set){
+  const url = el("input", { type:"url", placeholder:"https://…  (or /local-file.jpg)", value:get()||"" });
+  const thumb = el("div", { class:"thumb" }, el("img"));
+  const status = el("div", { class:"status" });
+  const wrap = el("div", { class:"imgfield" }, [
+    el("div", { class:"top" }, [url]), thumb, status
+  ]);
+  const img = thumb.firstChild;
+  const showThumb = v => {
+    if (v && /^(https?:|data:|blob:|\/)/.test(v)) { thumb.style.display = "block"; img.src = v; }
+    else thumb.style.display = "none";
+  };
+  img.addEventListener("load", () => { status.className = "status ok"; status.textContent = "✓ image loads"; });
+  img.addEventListener("error", () => { status.className = "status err"; status.textContent = "⚠ can't load this URL"; });
+  url.addEventListener("input", () => {
+    const v = url.value.trim(); set(v);
+    status.className = "status"; status.textContent = v ? "checking…" : "";
+    showThumb(v);
+  });
+  showThumb(get());
+  return wrap;
+}
+
+/* ---------- form builder ---------- */
+function textField(label, path, {area=false, hint=""}={}){
+  const input = area
+    ? el("textarea", { rows:3 })
+    : el("input", { type:"text" });
+  input.value = getPath(state, path) ?? "";
+  input.addEventListener("input", () => setPath(state, path, input.value));
+  return el("div", { class:"field" }, [
+    el("label", { text:label }),
+    input,
+    hint ? el("div", { class:"hint", text:hint }) : null
+  ]);
+}
+
+function build(){
+  const f = $("#form"); f.innerHTML = "";
+
+  // Page & sharing
+  f.append(fieldset("Page & link preview", [
+    grid2(
+      textField("Browser tab title", "text.documentTitle"),
+      textField("Language code", "text.lang", { hint:"e.g. en, es, vi" })
+    ),
+    grid2(
+      textField("Theme color", "text.meta.themeColor", { hint:"#rrggbb — mobile browser UI" }),
+      textField("Share URL (og:url)", "text.meta.ogUrl")
+    ),
+    textField("Share title (og:title)", "text.meta.ogTitle"),
+    textField("Share description (og:description)", "text.meta.ogDescription"),
+    el("div", { class:"field" }, [
+      el("label", { text:"Share image (og:image)" }),
+      imageField(() => state.text.meta.ogImage, v => state.text.meta.ogImage = v)
+    ])
+  ]));
+
+  // Headline
+  f.append(fieldset("Headline (top of screen)", [
+    grid2(
+      textField("Title text", "text.mainTitle"),
+      textField("Title emoji", "text.mainTitleEmoji")
+    )
+  ]));
+
+  // Start card
+  f.append(fieldset("Opening card", [
+    grid2(
+      textField("Front — name line", "text.startCard.frontName"),
+      textField("Front — cake emoji", "text.startCard.cakeEmoji")
+    ),
+    textField("Front — tap hint", "text.startCard.hint"),
+    textField("Inside — title", "text.startCard.insideTitle"),
+    textField("Inside — wish message", "text.startCard.wish", { area:true }),
+    textField("Inside — enter button", "text.startCard.enterButton"),
+    textField("Accessibility label", "text.startCard.ariaLabel", { hint:"screen-reader text for the card" })
+  ]));
+
+  // Galaxy shapes
+  f.append(fieldset("Galaxy particle shapes", [
+    el("div", { class:"hint", text:"The glowing particles morph through: heart → date → name → flower." }),
+    grid2(
+      textField("Name", "particleName"),
+      textField("Date", "dayText", { hint:"e.g. 04/09" })
+    )
+  ]));
+
+  // Love cards
+  const cardsWrap = el("div");
+  f.append(fieldset("Photo cards (orbiting photos → tap to open)", [
+    el("div", { class:"hint", html:"Each card is one orbiting photo. Tapping it opens a title + message. Order = orbit order.<br>Paste an image URL — e.g. upload the photo at <b>catbox.moe</b>, <b>postimages.org</b> or <b>imgur.com</b> and copy the direct link (ending in .jpg/.png)." }),
+    cardsWrap,
+    el("button", { class:"mini list-add", type:"button", onclick:() => { state.loveCards.push({name:"",img:"",msg:""}); renderCards(cardsWrap); } }, "+ Add card")
+  ]));
+  renderCards(cardsWrap);
+
+  // Phrases
+  const phrasesArea = el("textarea", { rows:8 });
+  phrasesArea.value = state.phrases.join("\n");
+  phrasesArea.addEventListener("input", () => {
+    state.phrases = phrasesArea.value.split("\n").map(s => s.trim()).filter(Boolean);
+  });
+  f.append(fieldset("Floating phrases", [
+    el("div", { class:"hint", text:"One phrase per line. They drift around the galaxy." }),
+    el("div", { class:"field" }, phrasesArea)
+  ]));
+
+  // Music + modal
+  f.append(fieldset("Music & misc", [
+    el("div", { class:"field" }, [
+      el("label", { text:"Background music (mp3 URL)" }),
+      imageField(() => state.music, v => state.music = v)
+    ]),
+    grid2(
+      textField("Photo-card close button", "text.loveCard.closeButton"),
+      textField("Photo-card fallback emoji", "text.loveCard.fallbackEmoji")
+    )
+  ]));
+
+  // JSON peek
+  const pre = el("textarea", { rows:12, readonly:"", style:"font-family:ui-monospace,Menlo,monospace;font-size:12px" });
+  const det = el("details", {}, [ el("summary", { text:"View / paste raw config.json" }), el("div", { class:"field" }, pre) ]);
+  det.addEventListener("toggle", () => { if (det.open) pre.value = JSON.stringify(collect(), null, 2); });
+  pre.addEventListener("change", () => {
+    try { state = deepMerge(clone(DEFAULTS), JSON.parse(pre.value)); build(); toast("Loaded from pasted JSON", "ok"); }
+    catch (e) { toast("Invalid JSON: " + e.message, "err"); }
+  });
+  f.append(det);
+}
+
+function fieldset(legend, kids){ return el("fieldset", {}, [ el("legend", { text:legend }), ...kids ]); }
+function grid2(a, b){ return el("div", { class:"grid2" }, [a, b]); }
+
+function renderCards(wrap){
+  wrap.innerHTML = "";
+  state.loveCards.forEach((card, i) => {
+    const name = el("input", { type:"text", value:card.name||"" });
+    name.addEventListener("input", () => card.name = name.value);
+    const msg = el("textarea", { rows:2 }); msg.value = card.msg||"";
+    msg.addEventListener("input", () => card.msg = msg.value);
+    const mv = (d) => {
+      const j = i + d; if (j<0 || j>=state.loveCards.length) return;
+      const a = state.loveCards; [a[i],a[j]] = [a[j],a[i]]; renderCards(wrap);
+    };
+    wrap.append(el("div", { class:"card" }, [
+      el("div", { class:"cardhead" }, [
+        el("strong", { text:"Card " + (i+1) }),
+        el("div", { class:"ctrls" }, [
+          el("button", { class:"mini ghost", type:"button", title:"move up", onclick:()=>mv(-1) }, "↑"),
+          el("button", { class:"mini ghost", type:"button", title:"move down", onclick:()=>mv(1) }, "↓"),
+          el("button", { class:"mini ghost", type:"button", onclick:()=>{ state.loveCards.splice(i,1); renderCards(wrap); } }, "Remove")
+        ])
+      ]),
+      el("div", { class:"field" }, [ el("label", { text:"Title" }), name ]),
+      el("div", { class:"field" }, [ el("label", { text:"Message" }), msg ]),
+      el("div", { class:"field" }, [ el("label", { text:"Photo" }),
+        imageField(() => card.img, v => card.img = v) ])
+    ]));
+  });
+}
+
+/* ---------- collect / load / save ---------- */
+function collect(){
+  const c = clone(state);
+  c.phrases = (c.phrases||[]).map(s => String(s).trim()).filter(Boolean);
+  c.loveCards = (c.loveCards||[]).map(x => ({ name:x.name||"", img:x.img||"", msg:x.msg||"" }));
+  return c;
+}
+
+async function load(){
+  try {
+    const r = await fetch("./config.json", { cache:"no-store" });
+    if (r.ok) {
+      const j = await r.json();
+      state = deepMerge(clone(DEFAULTS), j);
+      toast("Loaded existing config.json", "ok");
+    }
+  } catch (e) { /* none yet */ }
+  // is server.py running? (local only — lets "Save" write config.json)
+  try {
+    const r = await fetch("/api/save", { method:"OPTIONS" });
+    saveOk = r.ok || r.status === 204;
+  } catch (e) { saveOk = false; }
+  $("#server-note").textContent = saveOk
+    ? "server.py running — “Save” writes config.json for you"
+    : "Download config.json → put it next to index.html → commit / redeploy";
+  $("#btn-save").style.display = saveOk ? "" : "none";
+  $("#btn-download").classList.toggle("primary", !saveOk);
+  $("#btn-download").classList.toggle("ghost", saveOk);
+  build();
+}
+
+async function save(){
+  const body = JSON.stringify(collect(), null, 2);
+  try {
+    const r = await fetch("/api/save", { method:"POST", headers:{ "Content-Type":"application/json" }, body });
+    const j = await r.json();
+    if (j.ok) toast("Saved to config.json ✓  — reload the galaxy tab to see it", "ok");
+    else toast("Save failed: " + (j.error||"?"), "err");
+  } catch (e) { toast("Save failed: " + e.message + " — use Download instead", "err"); }
+}
+
+function download(){
+  const blob = new Blob([JSON.stringify(collect(), null, 2)], { type:"application/json" });
+  const a = el("a", { href:URL.createObjectURL(blob), download:"config.json" });
+  document.body.append(a); a.click(); a.remove();
+  toast("Downloaded — put config.json in the same folder as index.html", "ok");
+}
+
+async function copyJSON(){
+  const s = JSON.stringify(collect(), null, 2);
+  try { await navigator.clipboard.writeText(s); toast("config.json copied to clipboard", "ok"); }
+  catch (e) { toast("Copy blocked — use Download", "err"); }
+}
+
+$("#btn-save").addEventListener("click", save);
+$("#btn-download").addEventListener("click", download);
+$("#btn-copy").addEventListener("click", copyJSON);
+$("#btn-reload").addEventListener("click", load);
+
+load();
+</script>
+</body>
+</html>

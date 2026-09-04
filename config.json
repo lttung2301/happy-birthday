@@ -1,0 +1,105 @@
+{
+  "text": {
+    "lang": "en",
+    "documentTitle": "Happy Birthday",
+    "meta": {
+      "themeColor": "#000000",
+      "ogTitle": "Happy birthday Duy Nguyen 💗",
+      "ogDescription": "A whole galaxy for your 25th. 🎂",
+      "ogUrl": "https://feliz-dia-de-la-novia.netlify.app/",
+      "ogImage": "https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img1.webp"
+    },
+    "mainTitle": "Duy Nguyen",
+    "mainTitleEmoji": "💗",
+    "startCard": {
+      "ariaLabel": "Open birthday card",
+      "cakeEmoji": "🎂",
+      "frontName": "For Duy Nguyen",
+      "hint": "Tap to open",
+      "insideTitle": "Happy 25th! 🎉",
+      "wish": "Twenty-five years, one whole galaxy, all for you. May this year bring your master's degree, a little more rest, and every good thing your students already know you deserve. Tap below and let the stars carry you away. 💫",
+      "enterButton": "Enter the galaxy ✨"
+    },
+    "loveCard": {
+      "fallbackEmoji": "💗",
+      "closeButton": "Close"
+    }
+  },
+  "particleName": "Tan Le",
+  "dayText": "04/09",
+  "music": "https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/sound.mp3",
+  "phrases": [
+    "Happy 25th",
+    "A quarter century of sparkle",
+    "Master's almost done",
+    "Soon: Master of Arts",
+    "Cap and gown loading",
+    "The best English teacher",
+    "Class dismissed - go celebrate",
+    "A+ human",
+    "Chapter 25 begins",
+    "So proud of you",
+    "Make a wish",
+    "Shine bright",
+    "Your students are lucky",
+    "You inspire the room",
+    "Big year ahead",
+    "Dream big, teacher",
+    "Today is all yours",
+    "Wishing you the moon",
+    "Here's to you",
+    "May all your wishes come true"
+  ],
+  "loveCards": [
+    {
+      "name": "Happy 25th",
+      "img": "https://files.catbox.moe/qw6j3t.png",
+      "msg": "Twenty-five looks wonderful on you - a whole quarter-century of being kind, bright, and impossible not to love. Here's to the next chapter."
+    },
+    {
+      "name": "Almost a Master",
+      "img": "https://files.catbox.moe/qw6j3t.png",
+      "msg": "All those late nights, readings and drafts are about to have letters after your name. So proud of you - go collect that degree."
+    },
+    {
+      "name": "To the teacher",
+      "img": "https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img3.webp",
+      "msg": "You spend your days helping other people find the right words. Today, let someone find them for you: you are appreciated, more than your students could ever say."
+    },
+    {
+      "name": "Cap and gown soon",
+      "img": "https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img4.webp",
+      "msg": "The walk across the stage is so close now. Whatever comes after graduation, you have more than earned it."
+    },
+    {
+      "name": "Make a wish",
+      "img": "https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img5.webp",
+      "msg": "Close your eyes, blow out all twenty-five candles, and wish big. If anyone deserves for it to come true, it's you."
+    },
+    {
+      "name": "One in a billion",
+      "img": "https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img1.webp",
+      "msg": "Smart, patient, and genuinely good - that combination is rare. Happy birthday to someone the world got lucky with."
+    },
+    {
+      "name": "Your students are lucky",
+      "img": "https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img2.webp",
+      "msg": "Somewhere out there, a kid learned to love English because of you. That's a real legacy - and you're only 25."
+    },
+    {
+      "name": "This year",
+      "img": "https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img3.webp",
+      "msg": "A new age, a new degree, and a fresh page. May 25 bring you good news, good people, and time to actually rest."
+    },
+    {
+      "name": "In case no one said it",
+      "img": "https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img4.webp",
+      "msg": "You are loved, you are enough, and you are doing better than you think. Happy birthday - and breathe, you've earned this day."
+    },
+    {
+      "name": "Keep shining",
+      "img": "https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img5.webp",
+      "msg": "You light up classrooms and group chats and every room you walk into. Never lose that. Have the brightest year yet."
+    }
+  ]
+}

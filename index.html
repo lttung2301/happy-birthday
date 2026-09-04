@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title></title>
+<meta name="theme-color" content="">
+<meta property="og:title" content="">
+<meta property="og:image" content="">
+<meta property="og:url" content="">
+<meta property="og:type" content="website">
+<meta property="og:description" content="">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💗</text></svg>">
+
+<link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img1.webp">
+<link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img2.webp">
+<link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img3.webp">
+<link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img4.webp">
+<link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img5.webp">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Indie Flower','Bradley Hand','Segoe Script',cursive;cursor:grab;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;}
+body:active{cursor:grabbing;}
+canvas{display:block;position:fixed;top:0;left:0;z-index:1;}
+
+#main-title{
+  position:absolute;top:40px;left:50%;transform:translateX(-50%);
+  font-size:4.5em;color:#FFB6C1;max-width:92vw;white-space:nowrap;
+  text-shadow:0 0 15px #FF69B4,0 0 25px #DC143C;
+  z-index:10;pointer-events:none;text-align:center;
+  font-family:'Indie Flower','Bradley Hand','Segoe Script',cursive;
+}
+.t-line,.t-emoji{display:inline;}
+
+#start-screen{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:#000;display:flex;justify-content:center;align-items:center;
+  flex-direction:column;color:#fff;z-index:9999;padding:20px;cursor:pointer;
+  transition:opacity .7s ease,visibility .7s ease;
+}
+#start-screen.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+#start-screen .bday-wrap{
+  display:flex;flex-direction:column;align-items:center;
+}
+#bday-card{
+  position:relative;width:clamp(270px,84vw,360px);
+  aspect-ratio:3/4;perspective:1500px;cursor:pointer;
+}
+#bday-card-inside{
+  position:absolute;inset:0;border-radius:22px;
+  background:linear-gradient(165deg,#20040f,#360a1e 60%,#150309);
+  border:1px solid rgba(255,140,160,.4);
+  box-shadow:0 0 46px rgba(255,20,147,.3),0 0 90px rgba(220,20,60,.18);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:clamp(22px,6vw,36px);
+  opacity:0;transform:translateY(10px);
+  transition:opacity .6s ease .4s,transform .6s ease .4s;
+}
+#bday-card.opened #bday-card-inside{opacity:1;transform:translateY(0);}
+#bday-card-front{
+  position:absolute;inset:0;border-radius:22px;z-index:2;
+  background:
+    radial-gradient(circle at 50% 32%,rgba(255,255,255,.28),transparent 45%),
+    linear-gradient(160deg,#ff5c86,#d21146 62%,#8b0a2c);
+  border:1px solid rgba(255,190,205,.5);
+  box-shadow:0 0 50px rgba(255,20,147,.45),inset 0 0 44px rgba(0,0,0,.34);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:16px;
+  transform-origin:left center;backface-visibility:hidden;
+  transition:transform 1s cubic-bezier(.55,.06,.2,1);
+}
+#bday-card.opened #bday-card-front{transform:rotateY(-158deg);pointer-events:none;}
+#bday-card-front::after{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:14px;
+  background:linear-gradient(90deg,rgba(0,0,0,.28),transparent);
+  border-radius:22px 0 0 22px;
+}
+.bday-cake{
+  font-size:clamp(64px,20vmin,120px);line-height:1;
+  filter:drop-shadow(0 0 18px rgba(255,220,120,.75));
+  animation:latido 1.9s ease-in-out infinite;transform-origin:50% 60%;
+}
+@keyframes latido{
+  0%,100%{transform:scale(1) rotate(0deg);}
+  20%{transform:scale(1.09) rotate(-2deg);}
+  40%{transform:scale(1) rotate(0deg);}
+  60%{transform:scale(1.05) rotate(2deg);}
+}
+.bday-front-name{
+  font-size:clamp(22px,6vw,30px);color:#fff;
+  text-shadow:0 0 14px rgba(255,105,180,.85);letter-spacing:.5px;
+}
+.bday-hint{
+  font-size:clamp(14px,3.6vw,17px);color:rgba(255,255,255,.92);
+  text-shadow:0 0 8px #FF1493;
+  animation:parpadeo 2.2s ease-in-out infinite;
+}
+@keyframes parpadeo{0%,100%{opacity:.5;}50%{opacity:1;}}
+.bday-inside-title{
+  font-size:clamp(26px,7vw,36px);color:#ffd7dd;
+  text-shadow:0 0 18px rgba(255,105,180,.7);margin-bottom:14px;line-height:1.15;
+}
+.bday-wish{
+  font-size:clamp(15px,3.9vw,19px);line-height:1.6;
+  color:rgba(255,224,232,.92);text-wrap:pretty;margin-bottom:24px;
+}
+#bday-enter{
+  background:transparent;border:1px solid rgba(255,150,170,.6);
+  color:#ffc0cf;min-height:46px;padding:11px 30px;
+  font-family:inherit;font-size:19px;border-radius:999px;cursor:pointer;
+  transition:background .3s,border-color .3s,color .3s,transform .2s;
+}
+#bday-enter:hover{background:rgba(255,40,70,.26);border-color:rgba(255,190,205,.9);color:#fff;}
+#bday-enter:active{transform:scale(.96);}
+
+#love-card-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,.82);display:none;justify-content:center;align-items:center;
+  z-index:100;backdrop-filter:blur(6px);cursor:pointer;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+}
+#love-card{
+  position:relative;width:90%;max-width:420px;
+  background:rgba(20,4,8,.94);border:1px solid rgba(255,120,140,.45);
+  border-radius:28px;padding:26px 26px 32px;
+  display:flex;flex-direction:column;align-items:center;
+  box-shadow:0 0 36px rgba(255,20,147,.35),0 0 70px rgba(220,20,60,.2);
+  gap:0;margin:auto;
+}
+#love-card-image-wrap{
+  width:100%;border-radius:16px;overflow:hidden;
+  aspect-ratio:4/3;background:radial-gradient(ellipse at center,#3d0510,#0a0104 60%);
+  margin-bottom:22px;position:relative;
+  box-shadow:0 0 28px rgba(255,105,180,.35);
+  display:flex;align-items:center;justify-content:center;
+}
+#msg-fallback{
+  position:absolute;font-size:100px;opacity:.25;pointer-events:none;
+  line-height:1;display:flex;align-items:center;justify-content:center;
+  width:100%;height:100%;z-index:0;
+}
+#love-card-image{
+  position:relative;z-index:1;max-width:100%;height:100%;width:auto;object-fit:contain;border-radius:10px;
+}
+#love-card-image.error,#love-card-image:not([src]){display:none;}
+#love-card-title{
+  font-family:'Indie Flower','Bradley Hand','Segoe Script',cursive;font-size:clamp(28px,7vw,40px);
+  color:#ffd7dd;text-shadow:0 0 18px rgba(255,105,180,.7);
+  margin:0 0 14px;line-height:1.15;text-align:center;width:100%;
+}
+#love-card-text{
+  font-family:'Indie Flower','Bradley Hand','Segoe Script',cursive;font-size:clamp(16px,3.8vw,21px);
+  line-height:1.65;color:rgba(255,220,230,.92);text-align:center;
+  margin:0 0 26px;text-wrap:pretty;padding:0 8px;
+}
+#love-card-close{
+  background:transparent;border:1px solid rgba(255,120,140,.55);
+  color:#ffb8c8;min-height:46px;padding:10px 36px;
+  font-family:'Indie Flower','Bradley Hand','Segoe Script',cursive;font-size:20px;
+  border-radius:999px;cursor:pointer;
+  transition:background .3s,border-color .3s,color .3s;
+}
+#love-card-close:hover{
+  background:rgba(255,32,56,.24);
+  border-color:rgba(255,180,200,.85);color:#fff;
+}
+
+@media (max-width:768px){
+  #main-title{
+    position:fixed;top:20px;left:0;width:100%;max-width:100%;
+    transform:none;font-size:2.35em;display:flex;flex-direction:column;
+    align-items:center;white-space:normal;line-height:1.15;
+    padding:0 16px;box-sizing:border-box;
+  }
+  .t-line,.t-emoji{display:block;}
+  #love-card{padding:22px 20px 26px;}
+}
+@media (max-width:480px){
+  #main-title{font-size:2em;top:16px;padding:0 12px;}
+}
+@media (prefers-reduced-motion:reduce){
+  .bday-cake,.bday-hint{animation:none;}
+  #bday-card-front,#bday-card-inside{transition-duration:.01s;}
+  #bday-card.opened #bday-card-front{transform:none;opacity:0;}
+}
+</style>
+</head>
+<body>
+
+<h1 id="main-title"><span class="t-line"></span> <span class="t-emoji"></span></h1>
+
+<div id="start-screen">
+  <div class="bday-wrap">
+    <div id="bday-card" role="button" tabindex="0" aria-label="">
+      <div id="bday-card-inside">
+        <div class="bday-inside-title"></div>
+        <p class="bday-wish"></p>
+        <button id="bday-enter" type="button"></button>
+      </div>
+      <div id="bday-card-front">
+        <div class="bday-cake" aria-hidden="true"></div>
+        <div class="bday-front-name"></div>
+        <div class="bday-hint"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="love-card-overlay">
+  <div id="love-card">
+    <div id="love-card-image-wrap">
+      <span id="msg-fallback"></span>
+      <img id="love-card-image" alt="">
+    </div>
+    <h2 id="love-card-title"></h2>
+    <p id="love-card-text"></p>
+    <button id="love-card-close" type="button"></button>
+  </div>
+</div>
+
+<audio id="background-music" loop>
+  <source src="https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/sound.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="galaxy-canvas"></canvas>
+
+<script type="importmap">
+{"imports":{
+  "three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+}}
+</script>
+
+<script>
+document.addEventListener('contextmenu',event=>event.preventDefault());
+document.onkeydown=function(e){
+  if(e.keyCode==123||(e.ctrlKey&&e.shiftKey&&(e.keyCode=='I'.charCodeAt(0)||e.keyCode=='J'.charCodeAt(0)||e.keyCode=='C'.charCodeAt(0)))||(e.ctrlKey&&(e.keyCode=='U'.charCodeAt(0)||e.keyCode=='S'.charCodeAt(0)))){return false;}
+};
+
+/* ── Todos los textos de la interfaz: fuente única de verdad ──
+   Se aplica de forma síncrona (antes de cargar three.js) para evitar parpadeo.
+   El módulo lo expone luego como CONFIG.text. */
+window.APP_TEXT={
+  lang:'en',
+  documentTitle:'Happy Birthday',
+  meta:{
+    themeColor:'#000000',
+    ogTitle:'Happy birthday Duy Nguyen 💗',
+    ogDescription:'A whole galaxy just for you.',
+    ogUrl:'https://feliz-dia-de-la-novia.netlify.app/',
+    ogImage:'https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img1.webp'
+  },
+  mainTitle:'Duy Nguyen',
+  mainTitleEmoji:'💗',
+  particleName:'Thao Huynh',
+  startCard:{
+    ariaLabel:'Open birthday card',
+    cakeEmoji:'🎂',
+    frontName:'For Duy Nguyen',
+    hint:'Tap to open',
+    insideTitle:'Happy Birthday! 🎉',
+    wish:'Today the whole universe lights up just to celebrate you. May this new year bring you light, adventures, and all the love you deserve. Tap below and let the galaxy carry you away. 💫',
+    enterButton:'Enter the galaxy ✨'
+  },
+  loveCard:{fallbackEmoji:'💗',closeButton:'Close'}
+};
+window.applyAppText=function(){
+  var T=window.APP_TEXT||{},M=T.meta||{},c=T.startCard||{},L=T.loveCard||{};
+  var q=function(s){return document.querySelector(s);};
+  var setText=function(s,v){var el=q(s);if(el&&v!=null)el.textContent=v;};
+  var setAttr=function(s,a,v){var el=q(s);if(el&&v!=null)el.setAttribute(a,v);};
+  if(T.lang)document.documentElement.lang=T.lang;
+  if(T.documentTitle!=null)document.title=T.documentTitle;
+  setAttr('meta[name="theme-color"]','content',M.themeColor);
+  setAttr('meta[property="og:title"]','content',M.ogTitle);
+  setAttr('meta[property="og:description"]','content',M.ogDescription);
+  setAttr('meta[property="og:url"]','content',M.ogUrl);
+  setAttr('meta[property="og:image"]','content',M.ogImage);
+  setText('#main-title .t-line',T.mainTitle);
+  setText('#main-title .t-emoji',T.mainTitleEmoji);
+  setAttr('#bday-card','aria-label',c.ariaLabel);
+  setText('.bday-cake',c.cakeEmoji);
+  setText('.bday-front-name',c.frontName);
+  setText('.bday-hint',c.hint);
+  setText('.bday-inside-title',c.insideTitle);
+  setText('.bday-wish',c.wish);
+  setText('#bday-enter',c.enterButton);
+  setText('#msg-fallback',L.fallbackEmoji);
+  setText('#love-card-close',L.closeButton);
+};
+window.applyAppText();
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
+import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
+import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+const isMobile=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)
+  || ((navigator.maxTouchPoints||0)>1 && Math.min(screen.width,screen.height)<=1024);
+const RATIO_MAX=isMobile?1:2;   // móvil: 1 = mitad de framebuffer y de coste de bloom → evita crash por memoria
+
+const CONFIG={
+  galaxy:{rotationSpeed:.14},
+  blackHole:{radius:12,segments:64,color1:'#000000',color2:'#050505'},
+  accretionRing:{innerRadius:18,outerRadius:32,segments:128,centerColor:'#FF69B4',midColor:'#FF1493',edgeColor:'#8B0000',emissiveIntensity:2.4},
+  particles:{
+    coreStars:{count:isMobile?7000:20000,radius:190,maxHeight:65,size:.25},
+    sphericalHalo:{count:isMobile?6000:18000,radiusXZ:180,radiusY:80,size:.18,minDistFromCenter:28},
+    backgroundStars:{count:isMobile?3000:6000,radius:500,size:.22},
+    thinSpirals:{count:isMobile?11000:32000,arms:5,radius:195,size:isMobile?.32:.48},
+    texts:{count:isMobile?22:70,width:62,height:30,content:["Feliz Día de la Novia","Te amo","Eres mi todo","Mi amor eterno","Contigo lo es todo","Te quiero sin fin","Amor verdadero","Tú eres mi hogar","Eres lo que soñé","Siempre contigo","Cada día te quiero más","Eres mi mundo","Mi novia hermosa","Gracias por existir","Mi persona favorita","Eres mi lugar","Te elijo a ti","Hoy es tu día","Eres mi paz","Solo tú y yo"],colors:[{fill:'#FF69B4',shadow:'#FF1493'},{fill:'#FFB6C1',shadow:'#DC143C'},{fill:'#FFC0CB',shadow:'#FF69B4'}]},
+    images:{count:isMobile?10:16,size:30,urls:[
+      'https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img1.webp',
+      'https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img2.webp',
+      'https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img3.webp',
+      'https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img4.webp',
+      'https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img5.webp'
+    ]}
+  },
+  heart:{
+    count:isMobile?4000:6000,groupScale:27,size:isMobile?1.1:1.5,start:3,
+    // Nombre que dibujan las partículas.  Edítalo aquí, o en caliente:  setGalaxyName('Nuevo nombre')
+    name:{
+      text:(window.APP_TEXT&&window.APP_TEXT.particleName)||'Duy Nguyen',
+      width:6.6,                                                   // ancho objetivo en unidades locales (~1.5x el corazón)
+      fontFamily:'"Indie Flower","Segoe Script","Bradley Hand",cursive'
+    }
+  },
+  emojiHearts:{count:isMobile?10:14,emoji:['❤️','💗','💖','💕']},
+  loveCards:[
+    {name:"Feliz Día de la Novia",img:"https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img1.webp",msg:"Hoy es tu día y quiero decírtelo despacio: gracias por quedarte, por elegirme siempre."},
+    {name:"Tu risa",img:"https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img2.webp",msg:"La mejor hora del día es esa en la que te ríes y se te cierran los ojos."},
+    {name:"Mi persona favorita",img:"https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img3.webp",msg:"No hace falta un lugar bonito. Cualquier tarde se vuelve mágica si estás sentada al lado."},
+    {name:"Contigo",img:"https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img4.webp",msg:"Todavía me acuerdo de cómo me temblaban las manos. Desde ese día, cada beso tuyo conserva aquel susto bonito."},
+    {name:"Eres mi lugar",img:"https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img5.webp",msg:"Dondequiera que estés, esa es mi casa. No necesito más."},
+    {name:"Te elijo a ti",img:"https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img1.webp",msg:"De todas las personas del mundo, te elijo a ti, hoy y siempre."},
+    {name:"Gracias",img:"https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img2.webp",msg:"Gracias por hacer que cada día valga la pena, por estar tú al otro lado de todo."},
+    {name:"Para siempre",img:"https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img3.webp",msg:"No sé cuánto dura para siempre, pero sé que lo quiero pasar contigo."},
+    {name:"Eres mi todo",img:"https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img4.webp",msg:"Si tuviera que quedarme con una sola cosa de esta vida, me quedo contigo."},
+    {name:"Feliz día, mi novia",img:"https://cdn.jsdelivr.net/gh/JosephCC123/REPO-FOTOS@main/galaxia-fixed-dia-novia/img5.webp",msg:"Que este día te recuerde lo mucho que significas para mí. Te quiero."}
+  ],
+  shootingStars:{enabled:true,spawnProbability:.008,speed:1.2},
+  lighting:{ambientLight:{color:'#ffffff',intensity:.18},pointLight:{color:'#FF69B4',intensity:3.,distance:480}},
+  bloomEffect:{threshold:.68,strength:1.,radius:.48},
+  cameraControls:{minDistance:25,maxDistance:350},
+  intro:{cameraDuration:8,heartStart:3,imagesStart:5,phrasesStart:6.5,emojisStart:5.5},
+  // Textos de la interfaz: definidos y aplicados en el <script> clásico de arriba (window.APP_TEXT)
+  text:window.APP_TEXT||{}
+};
+
+let scene,camera,renderer,controls,composer,bloomPass;
+const BLOOM_RES=isMobile?.5:1;
+let galaxyGroup,imageGroup,textGroup,heartGroup,sphereMaterial;
+let blackHoleMesh,goldenRing;
+let coreMat,haloMat,spiralMat;
+let loveImages=[],loveTexts=[],shootingStars=[],jetVelocities=[],nombreListo=false;
+let jetPoints,jetGeo,jetMaterial;
+let heartSprites=[];
+let experienceStarted=false,experienceStartMs=0;
+let currentCardIndex=0;
+let raycaster,mouse,pointerDownPos=null;
+
+const getExperienceTime=()=>experienceStarted?(performance.now()-experienceStartMs)/1000:0;
+
+const easeOutCubic=x=>1-Math.pow(1-x,3);
+const easeOutBack=x=>{const c=1.70158;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2);};
+const easeInOutCubic=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const smoothstep=(a,b,x)=>{const t=Math.min(1,Math.max(0,(x-a)/(b-a)));return t*t*(3-2*t);};
+
+const CAM_START=new THREE.Vector3(0,130,550);
+const CAM_END=new THREE.Vector3(0,40,isMobile?240:180);
+const updateCamTarget=()=>CAM_END.set(0,40,innerWidth<768?240:180);
+
+function init(){
+  scene=new THREE.Scene();
+  raycaster=new THREE.Raycaster();
+  mouse=new THREE.Vector2();
+
+  camera=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,.1,1000);
+  renderer=new THREE.WebGLRenderer({canvas:document.getElementById('galaxy-canvas'),antialias:!isMobile,alpha:true,powerPreference:'high-performance'});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,RATIO_MAX));
+  renderer.setSize(innerWidth,innerHeight);
+
+  controls=new OrbitControls(camera,renderer.domElement);
+  controls.enableDamping=true;controls.dampingFactor=.05;
+  controls.minDistance=CONFIG.cameraControls.minDistance;
+  controls.maxDistance=CONFIG.cameraControls.maxDistance;
+  controls.enablePan=false;
+
+  const renderScene=new RenderPass(scene,camera);
+  bloomPass=new UnrealBloomPass(new THREE.Vector2(innerWidth*BLOOM_RES,innerHeight*BLOOM_RES),.4,.85);
+  bloomPass.threshold=CONFIG.bloomEffect.threshold;
+  bloomPass.strength=CONFIG.bloomEffect.strength*(isMobile?.85:1);
+  bloomPass.radius=CONFIG.bloomEffect.radius;
+  composer=new EffectComposer(renderer);
+  composer.addPass(renderScene);
+  composer.addPass(bloomPass);
+
+  const {ambientLight,pointLight}=CONFIG.lighting;
+  scene.add(new THREE.AmbientLight(ambientLight.color,ambientLight.intensity));
+  const mainLight=new THREE.PointLight(pointLight.color,pointLight.intensity,pointLight.distance);
+  mainLight.position.set(0,0,0);scene.add(mainLight);
+
+  galaxyGroup=new THREE.Group();scene.add(galaxyGroup);
+  imageGroup=new THREE.Group();scene.add(imageGroup);
+  textGroup=new THREE.Group();scene.add(textGroup);
+  heartGroup=new THREE.Group();scene.add(heartGroup);
+
+  createBlackHole();
+  createCoreStars();
+  createSphericalHalo();
+  createBackgroundStars();
+  createThinSpirals();
+  createLoveElements();
+  createHeart();
+  generarDestinoNombre();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(generarDestinoNombre);
+  createEmojiHearts();
+
+  window.addEventListener('resize',onResize);
+  renderer.domElement.addEventListener('pointerdown',onPointerDown);
+  renderer.domElement.addEventListener('pointerup',onPointerUp);
+  renderer.domElement.addEventListener('pointermove',onPointerMove);
+  onResize();
+  animate();
+}
+
+function onResize(){
+  camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight);
+  if(bloomPass)bloomPass.setSize(innerWidth*BLOOM_RES,innerHeight*BLOOM_RES);
+  updateCamTarget();
+  if(getExperienceTime()>=CONFIG.intro.cameraDuration)camera.position.copy(CAM_END);
+}
+
+function onPointerDown(e){pointerDownPos={x:e.clientX,y:e.clientY};}
+function onPointerUp(e){
+  if(!pointerDownPos||getExperienceTime()<CONFIG.intro.cameraDuration)return;
+  const dx=e.clientX-pointerDownPos.x,dy=e.clientY-pointerDownPos.y;
+  pointerDownPos=null;
+  if(Math.hypot(dx,dy)>5)return;
+  mouse.x=(e.clientX/innerWidth)*2-1;mouse.y=-(e.clientY/innerHeight)*2+1;
+  raycaster.setFromCamera(mouse,camera);
+  const visibleImages=loveImages.filter(m=>m.visible);
+  const hits=raycaster.intersectObjects(visibleImages,false);
+  if(hits.length>0)showLoveCard(hits[0].object.userData.card);
+}
+function onPointerMove(e){
+  if(getExperienceTime()<CONFIG.intro.cameraDuration)return;
+  mouse.x=(e.clientX/innerWidth)*2-1;mouse.y=-(e.clientY/innerHeight)*2+1;
+  raycaster.setFromCamera(mouse,camera);
+  const visibleImages=loveImages.filter(m=>m.visible);
+  const hits=raycaster.intersectObjects(visibleImages,false);
+  renderer.domElement.style.cursor=hits.length>0?'pointer':'grab';
+}
+
+function showLoveCard(card){
+  document.getElementById('love-card-title').textContent=card.name;
+  document.getElementById('love-card-text').textContent=card.msg;
+  const img=document.getElementById('love-card-image');
+  img.classList.remove('error');
+  img.onerror=()=>{img.classList.add('error');};
+  img.src=card.img;
+  document.getElementById('love-card-overlay').style.display='flex';
+}
+function hideLoveCard(){
+  document.getElementById('love-card-overlay').style.display='none';
+}
+
+// ── Agujero negro + anillo de acreción (ref2) ──
+function createBlackHole(){
+  const bhCfg=CONFIG.blackHole;
+  sphereMaterial=new THREE.ShaderMaterial({
+    uniforms:{uTime:{value:0},uColor1:{value:new THREE.Color(bhCfg.color1)},uColor2:{value:new THREE.Color(bhCfg.color2)}},
+    vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+    fragmentShader:`uniform float uTime;uniform vec3 uColor1;uniform vec3 uColor2;varying vec2 vUv;
+      float noise(vec2 st){return fract(sin(dot(st.xy,vec2(12.9898,78.233)))*43758.5453123);}
+      void main(){float n=noise(vUv*4.+uTime*.1);gl_FragColor=vec4(mix(uColor1,uColor2,n),1.);}`,
+    transparent:true
+  });
+  blackHoleMesh=new THREE.Mesh(new THREE.SphereGeometry(bhCfg.radius,bhCfg.segments,bhCfg.segments),sphereMaterial);
+  blackHoleMesh.scale.set(.001,.001,.001);
+  scene.add(blackHoleMesh);
+
+  const ringCfg=CONFIG.accretionRing;
+  const ringGeo=new THREE.RingGeometry(ringCfg.innerRadius,ringCfg.outerRadius,ringCfg.segments);
+  const ringMat=new THREE.ShaderMaterial({
+    uniforms:{
+      innerRadius:{value:ringCfg.innerRadius},outerRadius:{value:ringCfg.outerRadius},
+      centerColor:{value:new THREE.Color(ringCfg.centerColor)},midColor:{value:new THREE.Color(ringCfg.midColor)},
+      edgeColor:{value:new THREE.Color(ringCfg.edgeColor)},emissiveIntensity:{value:ringCfg.emissiveIntensity}
+    },
+    vertexShader:`varying vec3 vPosition;void main(){vPosition=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+    fragmentShader:`uniform float innerRadius;uniform float outerRadius;uniform vec3 centerColor;uniform vec3 midColor;uniform vec3 edgeColor;uniform float emissiveIntensity;varying vec3 vPosition;
+      void main(){float distance=length(vPosition.xy);float t=clamp((distance-innerRadius)/(outerRadius-innerRadius),0.,1.);
+      vec3 finalColor;if(t<.5)finalColor=mix(centerColor,midColor,t*2.);else finalColor=mix(midColor,edgeColor,(t-.5)*2.);
+      float glowFactor=1.-smoothstep(0.,1.,t);vec3 emissive=finalColor*emissiveIntensity*glowFactor;
+      gl_FragColor=vec4(finalColor+emissive,1.);}`,
+    side:THREE.DoubleSide
+  });
+  goldenRing=new THREE.Mesh(ringGeo,ringMat);
+  goldenRing.rotation.x=Math.PI/2;
+  goldenRing.scale.set(.001,.001,.001);
+  scene.add(goldenRing);
+}
+
+// ── Core stars (ref2) ──
+function createCoreStars(){
+  const cfg=CONFIG.particles.coreStars;
+  const geo=new THREE.BufferGeometry();
+  const pos=new Float32Array(cfg.count*3),col=new Float32Array(cfg.count*3);
+  const color=new THREE.Color();
+  for(let i=0;i<cfg.count;i++){
+    const i3=i*3;
+    const dist=CONFIG.accretionRing.outerRadius+Math.random()*(cfg.radius-CONFIG.accretionRing.outerRadius);
+    const angle=Math.random()*Math.PI*2;
+    const y=(Math.random()-.5)*cfg.maxHeight*Math.pow(1-(dist/cfg.radius),1.5);
+    pos.set([Math.cos(angle)*dist,y,Math.sin(angle)*dist],i3);
+    const hue=.9+Math.random()*.15;const sat=.8+Math.random()*.2;const lgt=.6+Math.random()*.4;
+    color.setHSL(hue%1,sat,lgt);col.set([color.r,color.g,color.b],i3);
+  }
+  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+  coreMat=new THREE.PointsMaterial({size:cfg.size,blending:THREE.AdditiveBlending,vertexColors:true,transparent:true,opacity:0,depthWrite:false});
+  galaxyGroup.add(new THREE.Points(geo,coreMat));
+}
+
+// ── Halo esférico 3D (ref2) ──
+function createSphericalHalo(){
+  const cfg=CONFIG.particles.sphericalHalo;
+  const geo=new THREE.BufferGeometry();
+  const pos=new Float32Array(cfg.count*3),col=new Float32Array(cfg.count*3);
+  const color=new THREE.Color();
+  let filled=0;
+  while(filled<cfg.count){
+    const rx=Math.random()*2-1,ry=Math.random()*2-1,rz=Math.random()*2-1;
+    if(rx*rx+ry*ry+rz*rz>1)continue;
+    const x=rx*cfg.radiusXZ,y=ry*cfg.radiusY,z=rz*cfg.radiusXZ;
+    const d=Math.sqrt(x*x+y*y+z*z);
+    if(d<cfg.minDistFromCenter)continue;
+    const rNorm=d/Math.max(cfg.radiusXZ,cfg.radiusY);
+    if(Math.random()>Math.pow(1-rNorm*.7,1.2))continue;
+    pos.set([x,y,z],filled*3);
+    const hue=.88+Math.random()*.18,sat=.6+Math.random()*.4,lgt=.45+Math.random()*.45;
+    color.setHSL(hue%1,sat,lgt);col.set([color.r,color.g,color.b],filled*3);
+    filled++;
+  }
+  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+  haloMat=new THREE.PointsMaterial({size:cfg.size,blending:THREE.AdditiveBlending,vertexColors:true,transparent:true,opacity:0,depthWrite:false});
+  galaxyGroup.add(new THREE.Points(geo,haloMat));
+}
+
+// ── Estrellas de fondo (ref2) ──
+function createBackgroundStars(){
+  const cfg=CONFIG.particles.backgroundStars;
+  const geo=new THREE.BufferGeometry();
+  const pos=new Float32Array(cfg.count*3);
+  for(let i=0;i<cfg.count;i++){const r=cfg.radius;pos.set([(Math.random()-.5)*2*r,(Math.random()-.5)*2*r,(Math.random()-.5)*2*r],i*3);}
+  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  const mat=new THREE.PointsMaterial({size:cfg.size,color:0xffffff,transparent:true,opacity:.65});
+  scene.add(new THREE.Points(geo,mat));
+}
+
+// ── Espirales delgadas blancas (ref1) ──
+function createThinSpirals(){
+  const cfg=CONFIG.particles.thinSpirals;
+  const n=cfg.count,pos=new Float32Array(n*3),colData=new Float32Array(n*3);
+  const color=new THREE.Color();
+  const ARMS=cfg.arms,SPIN=4.5,SPREAD=.025,H=1.2;
+  for(let i=0;i<n;i++){
+    const i3=i*3,arm=i%ARMS,t=i/n;
+    const r=40+t*155;
+    const baseAng=(arm/ARMS)*Math.PI*2;
+    const spinAng=Math.pow(t,.55)*SPIN;
+    const scatter=(Math.random()-.5)*SPREAD*(1+t*1.5);
+    pos[i3]=Math.cos(baseAng+spinAng+scatter)*r;
+    pos[i3+1]=(Math.random()-.5)*H*Math.exp(-r/500);
+    pos[i3+2]=Math.sin(baseAng+spinAng+scatter)*r;
+    color.setHSL(.94+Math.random()*.03,.08,.98+Math.random()*.02);
+    colData[i3]=color.r;colData[i3+1]=color.g;colData[i3+2]=color.b;
+  }
+  const geo=new THREE.BufferGeometry();
+  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  geo.setAttribute('color',new THREE.BufferAttribute(colData,3));
+  const circleTex=(()=>{
+    const c=document.createElement('canvas');c.width=c.height=64;
+    const ctx=c.getContext('2d');
+    const g=ctx.createRadialGradient(32,32,0,32,32,31);
+    g.addColorStop(0,'rgba(255,255,255,1)');g.addColorStop(.4,'rgba(255,255,255,.7)');g.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=g;ctx.fillRect(0,0,64,64);
+    return new THREE.CanvasTexture(c);
+  })();
+  spiralMat=new THREE.PointsMaterial({size:cfg.size,vertexColors:true,map:circleTex,blending:THREE.AdditiveBlending,transparent:true,opacity:0,depthWrite:false});
+  galaxyGroup.add(new THREE.Points(geo,spiralMat));
+}
+
+// ── Frases + imágenes flotantes (ref2 textos + ref3 órbitas) ──
+function createLoveElements(){
+  const txtCfg=CONFIG.particles.texts;
+  const imgCfg=CONFIG.particles.images;
+  const textureLoader=new THREE.TextureLoader();
+
+  for(let i=0;i<txtCfg.count;i++){
+    const cd=txtCfg.colors[i%txtCfg.colors.length];
+    const tex=createTextTexture(txtCfg.content[i%txtCfg.content.length],cd);
+    const mat=new THREE.MeshPhongMaterial({map:tex,transparent:true,alphaTest:.1,    emissive:cd.fill,emissiveIntensity:2.2,side:THREE.DoubleSide,depthWrite:false});
+    const mesh=new THREE.Mesh(new THREE.PlaneGeometry(txtCfg.width,txtCfg.height),mat);
+    const baseAngle=(i/txtCfg.count)*Math.PI*2+i*.37;
+    const radius=60+(i%6)*24;
+    const yLevel=Math.sin(i*1.7)*10;
+    mesh.userData={baseAngle,radius,yLevel,speed:.02+(i%3)*.006,phase:i*.5};
+    mesh.visible=false;mesh.scale.set(.001,.001,.001);mesh.material.opacity=0;
+    textGroup.add(mesh);loveTexts.push(mesh);
+  }
+
+  for(let i=0;i<imgCfg.count;i++){
+    const ring=i%2,idxInRing=Math.floor(i/2),perRing=Math.ceil(imgCfg.count/2);
+    const entry=CONFIG.loveCards[i%CONFIG.loveCards.length];
+    const cvs=document.createElement('canvas');cvs.width=cvs.height=isMobile?256:512;
+    drawImageFallback(cvs,i);
+    const tex=new THREE.CanvasTexture(cvs);tex.colorSpace=THREE.SRGBColorSpace;tex.anisotropy=isMobile?1:4;
+    tex.generateMipmaps=false;tex.minFilter=THREE.LinearFilter;tex.magFilter=THREE.LinearFilter;
+    const mat=new THREE.MeshBasicMaterial({map:tex,transparent:true,alphaTest:.1,side:THREE.DoubleSide,depthWrite:false,opacity:0,color:0xaaaaaa,toneMapped:false});
+    const mesh=new THREE.Mesh(new THREE.PlaneGeometry(imgCfg.size,imgCfg.size),mat);
+    const baseAngle=(idxInRing/perRing)*Math.PI*2+ring*.18;
+    const radius=ring===0?105:178;
+    mesh.userData={
+      card:entry,baseAngle,radius,speed:ring===0?.04:-.03,
+      tilt:ring===0?.10:-.14,yOffset:(ring===0?12:-9)+Math.sin(i)*3.2,
+      wobblePhase:i*.7,bobAmp:5.5,_intro:true
+    };
+    mesh.visible=false;mesh.scale.set(.001,.001,.001);
+    imageGroup.add(mesh);loveImages.push(mesh);
+
+    const img=new Image();img.crossOrigin='anonymous';img.decoding='async';
+    img.onload=()=>{redrawImage(cvs,img);tex.needsUpdate=true;img.onload=img.onerror=null;img.src='';};
+    img.onerror=()=>{img.onload=img.onerror=null;};
+    img.src=entry.img;
+  }
+}
+
+function createTextTexture(text,color){
+  // Lienzo mucho más pequeño en móvil: 70 texturas de 1800x700 reventaban la VRAM.
+  const S=isMobile?.34:.6;
+  const canvas=document.createElement('canvas');
+  canvas.width=Math.round(1800*S);canvas.height=Math.round(700*S);
+  const ctx=canvas.getContext('2d');
+  ctx.font=Math.round(115*S)+'px "Indie Flower","Bradley Hand","Segoe Script",cursive';ctx.fillStyle=color.fill;
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.shadowColor=color.shadow;ctx.shadowBlur=2*S;
+  const words=text.split(' ');let lines=[],currentLine=words[0];
+  const maxWidth=canvas.width-120*S,lineHeight=120*S;
+  for(let i=1;i<words.length;i++){
+    const testLine=currentLine+' '+words[i];
+    if(ctx.measureText(testLine).width>maxWidth&&currentLine.length>0){lines.push(currentLine);currentLine=words[i];}
+    else currentLine=testLine;
+  }
+  lines.push(currentLine);
+  const startY=canvas.height/2-(lines.length-1)*lineHeight/2;
+  lines.forEach((line,idx)=>ctx.fillText(line,canvas.width/2,startY+idx*lineHeight));
+  const tex=new THREE.CanvasTexture(canvas);
+  tex.generateMipmaps=false;tex.minFilter=THREE.LinearFilter;
+  return tex;
+}
+
+function drawImageFallback(cvs,idx){
+  const ctx=cvs.getContext('2d'),w=cvs.width,h=cvs.height,cx=w/2,cy=h/2;
+  ctx.clearRect(0,0,w,h);
+  const g=ctx.createRadialGradient(cx,cy,0,cx,cy,w*.47);
+  g.addColorStop(0,'rgba(255,150,180,.55)');g.addColorStop(.5,'rgba(255,60,110,.28)');g.addColorStop(1,'transparent');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  ctx.save();ctx.translate(cx,cy+30);ctx.scale(9,9);
+  ctx.beginPath();
+  for(let t=0;t<=Math.PI*2+.05;t+=.04){
+    const x=16*Math.pow(Math.sin(t),3),y=-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
+    if(t===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+  const hg=ctx.createRadialGradient(0,-8,0,0,-8,30);
+  hg.addColorStop(0,'#ffe3ea');hg.addColorStop(.5,'#ff5c7a');hg.addColorStop(1,'#c40f2e');
+  ctx.fillStyle=hg;ctx.fill();
+  ctx.restore();
+  for(let i=0;i<40;i++){ctx.globalAlpha=.2+Math.random()*.5;ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(Math.random()*w,Math.random()*h,.5+Math.random()*2,0,Math.PI*2);ctx.fill();}
+  ctx.globalAlpha=1;
+}
+
+function redrawImage(cvs,img){
+  const ctx=cvs.getContext('2d'),w=cvs.width,h=cvs.height;
+  ctx.clearRect(0,0,w,h);
+  const s=Math.max(w/img.width,h/img.height);
+  ctx.drawImage(img,(w-img.width*s)/2,(h-img.height*s)/2,img.width*s,img.height*s);
+}
+
+// ── Corazón brillante encima del agujero negro (ref3 exacto + group scale) ──
+function createHeart(){
+  const hCfg=CONFIG.heart;
+  jetGeo=new THREE.BufferGeometry();
+  const pos=new Float32Array(hCfg.count*3),col=new Float32Array(hCfg.count*3);
+  jetVelocities=[];
+
+  const hp=(t)=>({x:16*Math.pow(Math.sin(t),3)*0.13,y:(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))*0.13});
+  const inside=(x,y)=>{const X=x/1.2,Y=y/1.2;return Math.pow(X*X+Y*Y-1,3)-X*X*Y*Y*Y<0;};
+
+  let placed=0;
+  while(placed<hCfg.count){
+    const i3=placed*3;let px,py;
+    if(Math.random()<.7){
+      const tp=Math.random()*Math.PI*2,p=hp(tp);
+      const jit=(Math.random()-.5)*0.18;
+      const len=Math.sqrt(p.x*p.x+p.y*p.y)+.001;
+      px=p.x+(p.x/len)*jit;py=p.y+(p.y/len)*jit;
+    }else{
+      let att=0;do{px=(Math.random()-.5)*5;py=(Math.random()-.5)*5+.4;att++;if(att>30){px=0;py=0;break;}}while(!inside(px,py));
+    }
+    const pz=(Math.random()-.5)*.4;
+    pos[i3]=0;pos[i3+1]=0;pos[i3+2]=0;
+    const fase=Math.random()*Math.PI*2;
+    jetVelocities.push({
+      basePx:px,basePy:py+3.2,basePz:pz,
+      phase:fase,freq:.5+Math.random()*.8,amp:.04+Math.random()*.08,
+      emergeDelay:Math.random()*.9,emergeDuration:.7+Math.random()*.7
+    });
+    const tt=Math.random();
+    col[i3]=1.;col[i3+1]=.09+tt*.15;col[i3+2]=.15+tt*.19;
+    placed++;
+  }
+  jetGeo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  jetGeo.setAttribute('color',new THREE.BufferAttribute(col,3));
+  jetMaterial=new THREE.PointsMaterial({size:hCfg.size,sizeAttenuation:true,depthWrite:false,blending:THREE.AdditiveBlending,vertexColors:true,transparent:true,opacity:0});
+  jetPoints=new THREE.Points(jetGeo,jetMaterial);
+  const heartWrap=new THREE.Group();scene.add(heartWrap);
+  heartWrap.scale.setScalar(hCfg.groupScale);
+  heartWrap.add(jetPoints);
+  jetPoints.visible=false;
+}
+
+// ── Destino "nombre": las partículas dibujan el texto (mismo espacio local que el corazón) ──
+function generarDestinoNombre(){
+  if(!jetVelocities.length)return;
+  const nCfg=CONFIG.heart.name||{};
+  const txt=String(nCfg.text==null?'':nCfg.text).trim()||'Duy Nguyen';
+  const W=1024,H=256;
+  const cvs=document.createElement('canvas');cvs.width=W;cvs.height=H;
+  const ctx=cvs.getContext('2d');
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#fff';ctx.textAlign='center';ctx.textBaseline='middle';
+  let fs=200;
+  const fam=nCfg.fontFamily||'"Indie Flower","Segoe Script","Bradley Hand",cursive';
+  const setFont=()=>ctx.font='700 '+fs+'px '+fam;
+  setFont();
+  while(fs>24&&ctx.measureText(txt).width>W-70){fs-=6;setFont();}
+  ctx.fillText(txt,W/2,H/2);
+  const data=ctx.getImageData(0,0,W,H).data;
+  const pts=[];
+  for(let y=0;y<H;y+=2)for(let x=0;x<W;x+=2){if(data[(y*W+x)*4+3]>120)pts.push(x,y);}
+  const nPts=pts.length/2;
+  const TARGET_W=nCfg.width||6.6,scale=TARGET_W/W,cx=W/2,cy=H/2;
+  for(let i=0;i<jetVelocities.length;i++){
+    const v=jetVelocities[i];
+    if(nPts){
+      const k=((Math.random()*nPts)|0)*2;
+      const jx=(Math.random()-.5)*scale*1.8,jy=(Math.random()-.5)*scale*1.8;
+      v.nomPx=(pts[k]-cx)*scale+jx;
+      v.nomPy=3.2-(pts[k+1]-cy)*scale+jy;
+      v.nomPz=(Math.random()-.5)*.28;
+    }else{
+      v.nomPx=v.basePx;v.nomPy=v.basePy;v.nomPz=v.basePz;
+    }
+  }
+  nombreListo=true;
+}
+
+// ── Emojis de corazón con transparencia (ref3) ──
+function createEmojiHearts(){
+  const eCfg=CONFIG.emojiHearts;
+  const texturaEmoji=(glifo)=>{
+    const N=128,cvs=document.createElement('canvas');cvs.width=N;cvs.height=N;
+    const ctx=cvs.getContext('2d');
+    ctx.font=Math.round(N*.82)+'px "Segoe UI Emoji","Noto Color Emoji","Apple Color Emoji",sans-serif';
+    ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(glifo,N/2,N*.56);
+    const tex=new THREE.CanvasTexture(cvs);tex.colorSpace=THREE.SRGBColorSpace;
+    return tex;
+  };
+  const texturas=eCfg.emoji.map(texturaEmoji);
+
+  for(let i=0;i<eCfg.count;i++){
+    const tex=texturas[i%texturas.length];
+    const mat=new THREE.SpriteMaterial({map:tex,transparent:true,opacity:0,depthWrite:false});
+    const sprite=new THREE.Sprite(mat);
+    const escala=9+Math.random()*6;sprite.scale.set(escala,escala,1);
+    heartGroup.add(sprite);
+    heartSprites.push({
+      sprite,radius:50+Math.random()*125,baseAngle:Math.random()*Math.PI*2,
+      speed:(Math.random()<.5?1:-1)*(.015+Math.random()*.03),
+      yLevel:(Math.random()-.5)*12,yAmp:4+Math.random()*5,
+      fase:Math.random()*Math.PI*2,freqBob:.15+Math.random()*.2,giroVel:(Math.random()-.5)*.25,
+      objetivoOpacidad:.32+Math.random()*.20,retraso:Math.random()*2.5
+    });
+  }
+}
+
+// ── Estrella fugaz (ref2) ──
+function createShootingStar(){
+  const geo=new THREE.BufferGeometry();
+  geo.setAttribute('position',new THREE.BufferAttribute(new Float32Array([0,0,0]),3));
+  const mat=new THREE.PointsMaterial({color:0xffffff,size:1.8,blending:THREE.AdditiveBlending,transparent:true});
+  const star=new THREE.Points(geo,mat);
+  const x=THREE.MathUtils.randFloatSpread(800),y=THREE.MathUtils.randFloat(100,300),z=THREE.MathUtils.randFloatSpread(800);
+  star.position.set(x,y,z);
+  star.userData.velocity=new THREE.Vector3((Math.random()<.5?-1:1)*CONFIG.shootingStars.speed,-CONFIG.shootingStars.speed*.5,(Math.random()-.5)*2);
+  star.userData.life=0;
+  shootingStars.push(star);scene.add(star);
+}
+
+// ── Animación principal ──
+function animate(){
+  requestAnimationFrame(animate);
+  const t=getExperienceTime();
+  if(!t){composer.render();return;}
+
+  const INTRO=CONFIG.intro.cameraDuration;
+
+  if(t<INTRO){
+    const p=easeOutCubic(Math.min(1,t/INTRO));
+    camera.position.lerpVectors(CAM_START,CAM_END,p);
+    controls.enabled=false;
+  }else{controls.enabled=true;}
+
+  if(t>.6&&blackHoleMesh){
+    const s=Math.max(easeOutBack(Math.min(1,(t-.6)/1.6)),.001);
+    [blackHoleMesh,goldenRing].forEach(o=>o.scale.setScalar(s));
+  }
+
+  let gp=0;
+  if(t>1.5){gp=easeOutCubic(Math.min(1,(t-1.5)/3.2));}
+  galaxyGroup.visible=gp>.001;
+  galaxyGroup.scale.setScalar(Math.max(gp,.001));
+  galaxyGroup.rotation.y=t*(CONFIG.galaxy.rotationSpeed+(1-gp)*1.2);
+  if(coreMat)coreMat.opacity=gp;
+  if(haloMat)haloMat.opacity=gp*.72;
+  if(spiralMat)spiralMat.opacity=gp*.9;
+
+  updateHeart(t);
+  updateImages(t);
+  updatePhrases(t);
+  updateEmojiHearts(t);
+
+  if(sphereMaterial)sphereMaterial.uniforms.uTime.value=t;
+
+  if(CONFIG.shootingStars.enabled&&Math.random()<CONFIG.shootingStars.spawnProbability)createShootingStar();
+  shootingStars.forEach((star,i)=>{
+    star.position.add(star.userData.velocity);star.userData.life++;
+    if(star.userData.life>300){scene.remove(star);shootingStars.splice(i,1);}
+  });
+
+  controls.update();composer.render();
+}
+
+function updateHeart(t){
+  const hCfg=CONFIG.heart;
+  if(t<=hCfg.start||!jetPoints){if(jetPoints)jetPoints.visible=false;return;}
+  jetPoints.visible=true;jetPoints.material.opacity=.95;
+  const heartT=t-hCfg.start;
+  const pos=jetGeo.attributes.position.array;
+
+  const M_START=7.,M_QUIETO=2.2,M_TRANS=.9,M_PASO=M_QUIETO+M_TRANS,M_CASC=.3;
+  // Secuencia de figuras (orden): 0=corazón, 2=nombre
+  const seq=[0];
+  if(nombreListo)seq.push(2);
+  const N=seq.length;
+  const first=seq[0];
+  const morphOn=N>1&&t>M_START;
+  let sA=first,sB=first,mez=0;
+  if(morphOn){
+    const ciclo=N*M_PASO,c=(t-M_START)%ciclo;
+    const paso=Math.floor(c/M_PASO),dentro=c-paso*M_PASO;
+    sA=seq[paso%N];sB=seq[(paso+1)%N];
+    if(dentro>M_QUIETO)mez=Math.min(1,(dentro-M_QUIETO)/M_TRANS);
+  }
+  const tgtX=(v,s)=>s===2?v.nomPx:v.basePx;
+  const tgtY=(v,s)=>s===2?v.nomPy:v.basePy;
+  const tgtZ=(v,s)=>s===2?v.nomPz:v.basePz;
+
+  for(let i=0;i<hCfg.count;i++){
+    const i3=i*3,v=jetVelocities[i];
+    const lt=heartT-v.emergeDelay;
+    if(lt<=0){pos[i3]=0;pos[i3+1]=0;pos[i3+2]=0;continue;}
+    const p=Math.min(1,lt/v.emergeDuration);
+    const eased=1-Math.pow(1-p,3);
+
+    let tx=tgtX(v,first),ty=tgtY(v,first),tz=tgtZ(v,first);
+    if(morphOn){tx=tgtX(v,sA);ty=tgtY(v,sA);tz=tgtZ(v,sA);}
+    if(morphOn&&mez>0){
+      const crudo=(mez-(v.phase/(Math.PI*2))*M_CASC)/(1-M_CASC);
+      const mi=easeInOutCubic(Math.min(1,Math.max(0,crudo)));
+      if(mi>0){
+        const dx=tgtX(v,sB),dy=tgtY(v,sB),dz=tgtZ(v,sB);
+        tx+=(dx-tx)*mi;ty+=(dy-ty)*mi;tz+=(dz-tz)*mi;
+      }
+    }
+
+    const beat=1+Math.sin(t*2.2)*.04;
+    const wob=Math.sin(t*v.freq+v.phase)*v.amp;
+    const fx=tx*beat+Math.cos(v.phase)*wob*.3;
+    const fy=(ty-3.2)*beat+3.2+Math.sin(v.phase*1.3)*wob*.3;
+    const fz=tz+Math.sin(t*v.freq*.7+v.phase)*.15;
+    const arcY=Math.sin(eased*Math.PI)*.6;
+    pos[i3]=fx*eased;pos[i3+1]=fy*eased+arcY*(1-eased);pos[i3+2]=fz*eased;
+  }
+  jetGeo.attributes.position.needsUpdate=true;
+  const colArr=jetGeo.attributes.color.array;
+  for(let i=0;i<hCfg.count;i++){
+    const i3=i*3,v=jetVelocities[i];
+    const flick=.78+Math.sin(t*3+v.phase)*.12;
+    colArr[i3]=1.*flick;colArr[i3+1]=(.1+Math.sin(v.phase)*.05)*flick;colArr[i3+2]=(.2+Math.cos(v.phase)*.09)*flick;
+  }
+  jetGeo.attributes.color.needsUpdate=true;
+}
+
+function updateImages(t){
+  const imgStart=CONFIG.intro.imagesStart;
+  loveImages.forEach((m,i)=>{
+    const d=m.userData;
+    if(t>imgStart+i*.28){
+      m.visible=true;
+      const localP=Math.min(1,(t-imgStart-i*.22)/1.6);
+      const eased=easeOutCubic(localP);
+      const angle=d.baseAngle+t*d.speed;
+      const fx=Math.cos(angle)*d.radius,fz=Math.sin(angle)*d.radius;
+      const fy=d.yOffset+Math.sin(t*.4+d.wobblePhase)*d.bobAmp+Math.sin(angle)*d.tilt;
+      m.position.set(fx*eased,fy*eased,fz*eased);
+      m.scale.setScalar(Math.max(eased,.001));
+      m.material.opacity=eased;
+      m.lookAt(camera.position);
+      d._intro=localP<1;
+    }
+  });
+  loveImages.forEach(m=>{
+    const d=m.userData;
+    if(d._intro||!m.visible)return;
+    const angle=d.baseAngle+t*d.speed;
+    const x=Math.cos(angle)*d.radius,z=Math.sin(angle)*d.radius;
+    const y=d.yOffset+Math.sin(t*.4+d.wobblePhase)*d.bobAmp+Math.sin(angle)*d.tilt;
+    m.position.set(x,y,z);m.scale.setScalar(1);m.lookAt(camera.position);
+  });
+}
+
+function updatePhrases(t){
+  const txtStart=CONFIG.intro.phrasesStart;
+  loveTexts.forEach((m,i)=>{
+    const d=m.userData;
+    if(t>txtStart+i*.09){
+      m.visible=true;
+      const localP=Math.min(1,(t-txtStart-i*.07)/1.5);
+      const eased=easeOutCubic(localP);
+      const angle=d.baseAngle+t*d.speed;
+      const fx=Math.cos(angle)*d.radius,fz=Math.sin(angle)*d.radius;
+      const fy=d.yLevel+Math.sin(t*.3+d.phase)*.05;
+      m.position.set(fx*eased,fy*eased,fz*eased);
+      m.scale.setScalar(eased);
+      m.material.opacity=eased*(d._intro?1:1);
+      m.lookAt(camera.position);
+      d._intro=localP<1;
+    }
+  });
+  loveTexts.forEach(m=>{
+    const d=m.userData;
+    if(d._intro||!m.visible)return;
+    const angle=d.baseAngle+t*d.speed;
+    const x=Math.cos(angle)*d.radius,z=Math.sin(angle)*d.radius;
+    const y=d.yLevel+Math.sin(t*.3+d.phase)*.05;
+    m.position.set(x,y,z);m.lookAt(camera.position);
+    m.material.opacity=.9+Math.sin(t*.6+d.phase)*.1;
+  });
+}
+
+function updateEmojiHearts(t){
+  const emjStart=CONFIG.intro.emojisStart;
+  heartSprites.forEach(h=>{
+    const p=smoothstep(0,1,Math.max(0,(t-emjStart-h.retraso)/1.6));
+    if(p<=0){h.sprite.visible=false;return;}
+    h.sprite.visible=true;
+    const angle=h.baseAngle+t*h.speed;
+    h.sprite.position.set(Math.cos(angle)*h.radius,h.yLevel+Math.sin(t*h.freqBob+h.fase)*h.yAmp,Math.sin(angle)*h.radius);
+    h.sprite.material.rotation=t*h.giroVel;
+    const parpadeo=.85+.15*Math.sin(t*.7+h.fase);
+    h.sprite.material.opacity=h.objetivoOpacidad*p*parpadeo;
+  });
+}
+
+// ── Arranque ──
+const startScreen=document.getElementById('start-screen');
+const bdayCard=document.getElementById('bday-card');
+const music=document.getElementById('background-music');
+const cardIsOpen=()=>bdayCard.classList.contains('opened');
+function openBdayCard(){bdayCard.classList.add('opened');}
+bdayCard.addEventListener('click',()=>{if(!cardIsOpen())openBdayCard();});
+bdayCard.addEventListener('keydown',e=>{
+  if((e.key==='Enter'||e.key===' ')&&!cardIsOpen()){e.preventDefault();openBdayCard();}
+});
+function startExperience(){
+  if(experienceStarted)return;experienceStarted=true;experienceStartMs=performance.now();
+  startScreen.classList.add('hidden');
+  setTimeout(()=>startScreen.style.display='none',800);
+  music.play().catch(()=>{});
+}
+document.getElementById('bday-enter').addEventListener('click',e=>{e.stopPropagation();startExperience();});
+document.getElementById('love-card-overlay').addEventListener('click',e=>{if(e.target===e.currentTarget||e.target===document.getElementById('love-card-close'))hideLoveCard();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')hideLoveCard();});
+
+// ── API pública: cambiar los textos de la galaxia en caliente ──
+// Ej.:  setGalaxyName('Ana & Leo')
+window.setGalaxyName=function(t){
+  CONFIG.heart.name.text=String(t==null?'':t);
+  if(window.APP_TEXT)window.APP_TEXT.particleName=CONFIG.heart.name.text;
+  generarDestinoNombre();                       // las partículas se re-forman en el próximo ciclo de morph
+  return CONFIG.heart.name.text;
+};
+window.GALAXY_CONFIG=CONFIG;                     // para ajustar name.width, etc. y volver a llamar setGalaxyName()
+
+// ── Cargar config.json (generado por config.html) y aplicarlo sobre los valores por defecto ──
+try{
+  const _res=await fetch('./config.json',{cache:'no-store'});
+  if(_res.ok){
+    const c=await _res.json();
+    if(c.text){window.APP_TEXT=Object.assign({},window.APP_TEXT,c.text);window.applyAppText&&window.applyAppText();}
+    if(typeof c.particleName==='string')CONFIG.heart.name.text=c.particleName;
+    if(Array.isArray(c.phrases)&&c.phrases.length)CONFIG.particles.texts.content=c.phrases.map(String);
+    if(Array.isArray(c.loveCards)&&c.loveCards.length)CONFIG.loveCards=c.loveCards;
+    if(typeof c.music==='string'&&c.music){
+      const s=document.querySelector('#background-music source');
+      if(s){s.src=c.music;document.getElementById('background-music').load();}
+    }
+    window.APP_CONFIG=c;
+  }
+}catch(e){/* sin config.json → valores por defecto */}
+
+init();
+</script>
+</body>
+</html>
